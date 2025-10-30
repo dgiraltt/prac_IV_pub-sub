@@ -1,8 +1,7 @@
 [project]
 name = "prac-iv-pub_sub"
 version = "0.1.0"
-description = "Description"
+description = "A Tic-Tac-Toe game using Pub/Sub architecture."
 requires-python = ">=3.13"
 dependencies = [
 ]
-

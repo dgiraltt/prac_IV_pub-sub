@@ -3,6 +3,7 @@ import random
 
 
 class TicTacToe:
+    """A Tic-Tac-Toe game implementation."""
     def __init__(self, name):
         self.logger = logging.getLogger(name)
         self.board = [[" " for _ in range(3)] for _ in range(3)]
@@ -10,6 +11,7 @@ class TicTacToe:
 
 
     def print_board(self):
+        """Print the current board state"""
         self.logger.info("-" * 5)
         for row in self.board:
             self.logger.info("|".join(row))
@@ -17,6 +19,7 @@ class TicTacToe:
 
 
     def make_move(self, row, col):
+        """Make a move at the specified row and column"""
         if self.board[row][col] == " ":
             self.board[row][col] = self.symbol
             return True
@@ -24,6 +27,7 @@ class TicTacToe:
 
 
     def check_win(self):
+        """Check if the current player has won the game"""
         # Check rows
         for row in self.board:
             if row.count(row[0]) == 3 and row[0] != " ":
@@ -44,10 +48,12 @@ class TicTacToe:
 
 
     def check_draw(self):
+        """Check if the game is a draw"""
         return all(cell != " " for row in self.board for cell in row)
 
 
     def random_move(self):
+        """Make a random move"""
         while True:
             row = random.randint(0, 2)
             col = random.randint(0, 2)

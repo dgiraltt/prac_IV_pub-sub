@@ -11,6 +11,9 @@ PORT = int(os.environ.get("PORT"))
 PEER_PORT = int(os.environ.get("PEER_PORT"))
 
 class Agent(PublisherSubscriber, TicTacToe):
+    """
+    An agent that plays Tic-Tac-Toe using a publisher-subscriber model over UDP.
+    """
     def __init__(self, name, own_port, peer_port):
         PublisherSubscriber.__init__(self, name, own_port, peer_port)
         TicTacToe.__init__(self, name)
@@ -19,6 +22,7 @@ class Agent(PublisherSubscriber, TicTacToe):
     def start(self, is_initiator=False):
         self.logger.info("Starting agent...")
 
+        # Connects to peer
         if not self.ensure_mutual_subscription():
             self.logger.error("Failed to establish mutual subscription")
             return
@@ -26,6 +30,7 @@ class Agent(PublisherSubscriber, TicTacToe):
         self.sock.settimeout(None)
         self.logger.info(f"Playing as {self.symbol}")
 
+        # Makes first move
         if is_initiator:
             self.logger.info("Making first move...")
             row, col = self.random_move()

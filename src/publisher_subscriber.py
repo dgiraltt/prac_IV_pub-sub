@@ -6,6 +6,7 @@ from typing import Set, Tuple
 
 
 class PublisherSubscriber:
+    """A publisher-subscriber implementation using UDP."""
     def __init__(self, name, own_port, peer_port):
         self.name = name
         self.own_port = own_port
@@ -14,8 +15,6 @@ class PublisherSubscriber:
         self.subscribers: Set[Tuple[str, int]] = set()
         self.is_subscribed = False
         self.peer_host = 'agent2' if self.name == 'agent1' else 'agent1'
-
-        # Configure logger
         self.logger = logging.getLogger(name)
 
         # Initialize UDP socket
@@ -25,6 +24,7 @@ class PublisherSubscriber:
 
 
     def send_message(self, message, host, port):
+        """Send a message to a specific host and port"""
         try:
             self.sock.sendto(str(message).encode(), (host, port))
             self.logger.debug(f"Sent {message} to {host}:{port}")
@@ -55,6 +55,7 @@ class PublisherSubscriber:
                     self.subscribers.add(addr)
                     self.logger.info(f"New subscriber from {addr}")
                 self.send_message("SUBSCRIBED", addr[0], addr[1])
+
                 # Subscribe back if we haven't already
                 if not self.is_subscribed:
                     self.subscribe_to_peer()
@@ -92,7 +93,7 @@ class PublisherSubscriber:
                 # Wait for subscription confirmation
                 wait_start = time.time()
                 while time.time() - wait_start < 2 and not self.is_subscribed:
-                    self.receive()  # This will set is_subscribed if we get SUBSCRIBED message
+                    self.receive()
                     time.sleep(0.1)
 
                 if self.is_subscribed:
