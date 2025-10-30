@@ -1,0 +1,8 @@
+[project]
+name = "prac-iv-pub_sub"
+version = "0.1.0"
+description = "Description"
+requires-python = ">=3.13"
+dependencies = [
+]
+

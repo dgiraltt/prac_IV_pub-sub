@@ -1,0 +1,19 @@
+services:
+  agent1:
+    build: .
+    command: python agent.py agent1
+    networks:
+      - agent-network
+    hostname: agent1
+
+  agent2:
+    build: .
+    depends_on: [agent1]
+    command: python agent.py agent2
+    networks:
+      - agent-network
+    hostname: agent2
+
+networks:
+  agent-network:
+    driver: bridge
