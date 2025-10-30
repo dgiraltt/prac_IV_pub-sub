@@ -52,7 +52,7 @@ The game is designed to run using Docker containers. Here's how to start it:
 
 3. Build and run the containers:
    ```bash
-   docker compose up
+   docker compose up --build
    ```
 
 This will start two agent containers that will play against each other. The agents will:
