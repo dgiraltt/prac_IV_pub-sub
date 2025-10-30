@@ -1,19 +1,17 @@
 services:
   agent1:
     build: .
-    command: python agent.py agent1
-    networks:
-      - agent-network
-    hostname: agent1
+    environment:
+      - AGENT_NAME=agent1
+      - PORT=5001
+      - PEER_PORT=5002
+    command: python agent.py
 
   agent2:
     build: .
+    environment:
+      - AGENT_NAME=agent2
+      - PORT=5002
+      - PEER_PORT=5001
     depends_on: [agent1]
-    command: python agent.py agent2
-    networks:
-      - agent-network
-    hostname: agent2
-
-networks:
-  agent-network:
-    driver: bridge
+    command: python agent.py
